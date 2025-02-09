@@ -1,0 +1,72 @@
+<div class="product-container">
+  <div class="search-container">
+      <div class="search-box d-flex align-items-center">
+          <i class="bi bi-search text-muted px-3 me-2"></i> 
+          <input 
+              type="text" 
+              [(ngModel)]="searchTerm"
+              (input)="onSearch(searchTerm)"
+              placeholder="Search by Product name, Generic, Barcode no"
+              class="search-input form-control"
+          >
+      </div>
+      
+  </div>
+
+  <div class="main-content">
+      <div *ngIf="!isMobile" >
+          <app-category-list 
+          [categories]="categories" 
+          [selectedCategoryId]="productService.getCurrentCategory()" 
+          [totalProductCount]="products.length"
+          (categorySelected)="onCategorySelect($event)">
+          </app-category-list>
+      </div>
+      
+      <div class="product-section">
+          <div class="filter-header">
+              <div class="total-count">
+                  Total Medicine ({{ products.length }})
+              </div>
+              <div class="brand-filter">
+                  <select 
+                      (change)="onBrandSelect($event)"
+                      [value]="productService.getCurrentBrand() || ''">
+                      <option value="">Select brand</option>
+                      <option 
+                          *ngFor="let brand of brands" 
+                          [value]="brand.brandId">
+                          {{ brand.name }}
+                      </option>
+                  </select>
+              </div>
+          </div>
+
+          <div class="product-grid">
+              <div *ngFor="let product of products" class="product-card" [class.out-of-stock]="product.stock === 0" (click)="onProductSelect(product)">
+                
+                <div class="product-header">
+                  <div class="product-image">
+                    <img [src]="product.productImage || 'assets/default-image.png'" [alt]="product.name">
+                  </div>
+                  <div class="stock-info">
+                    <span class="stock-label">In stock:</span>
+                    <br>
+                    <span [class.text-success]="product.stock > 0" [class.text-danger]="product.stock === 0">
+                      {{ product.stock > 0 ? product.stock : 'Out of Stock' }}
+                    </span>
+                    <div class="discount-badge" *ngIf="product.defaultDiscount">
+                      Tk. {{ product.defaultDiscount }} Off
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="product-info">
+                  <h3>{{ product.name }}</h3>
+                  <p class="price">Tk. {{ product.price }}</p>
+                </div>
+              </div>
+            </div>
+      </div>
+  </div>
+</div>

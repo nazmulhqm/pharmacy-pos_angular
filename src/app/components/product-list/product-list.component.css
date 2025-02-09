@@ -1,0 +1,144 @@
+.product-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+}
+
+.search-container {
+  padding: 12px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.search-box {
+  position: relative;
+  width: 100%;
+}
+
+
+.search-input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.product-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.filter-header {
+  padding: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.total-count {
+  font-weight: 500;
+}
+
+.brand-filter select {
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: #fff;
+  min-width: 150px;
+}
+
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  padding: 8px;
+  background: #f8f9fa;
+  max-height: 100%;
+  height: 58vh;
+  overflow-y: auto;
+}
+
+.product-card {
+  border: 1px solid #ced4da;
+  border-radius: 12px;
+  padding: 16px;
+  background: white;
+  text-align: left;
+  transition: box-shadow 0.3s;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-image img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #f0f0f0;
+  padding: 10px;
+  border: 2px solid #d3d3d3;
+}
+
+.stock-info {
+  text-align: left;
+}
+
+.stock-label {
+  font-weight: bold;
+}
+
+.text-success {
+  color: #28a745;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+.discount-badge {
+  font-size: 14px;
+  font-weight: bold;
+  color: #dc3545;
+  margin-top: 5px;
+}
+
+.product-info {
+  margin-top: 15px;
+}
+
+.product-info h3 {
+  font-size: 16px;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+}

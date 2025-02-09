@@ -1,0 +1,58 @@
+
+<div class="header-container">
+  <div class="header-inner">
+    <div class="logo-section" *ngIf="!isMobile">
+      <a routerLink="/">
+        <img src="assets/invoice-360-logo.svg" alt="Vonome" class="logo"/>
+      </a>
+      <button mat-icon-button class="header-btn">
+        <mat-icon>keyboard</mat-icon>
+      </button>
+      <div class="live-status">{{ currentTime }}</div>
+      
+    </div>
+
+    <div class="menu-middle" *ngIf="!isMobile">
+      <ng-container *ngFor="let menu of menus">
+        <button mat-button [ngClass]="menu.class">
+          <mat-icon>{{ menu.icon }}</mat-icon> {{ menu.title }}
+        </button>
+      </ng-container>
+    </div>
+
+    <div class="menu-right" *ngIf="!isMobile">
+      <button mat-button class="screen-btn">
+        <mat-icon>screen_share</mat-icon> Screen
+      </button>
+      <button mat-button class="exit-btn">
+        <mat-icon>exit_to_app</mat-icon> Exit
+      </button>
+      <button mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+
+    <div class="mobile-menu" *ngIf="isMobile">
+      <div>
+        <button (click)="onMenuClick()" class="btn btn-light d-lg-none">
+          <i class="bi bi-list"></i>
+        </button>
+      </div>
+      <div class="mobile-actions">
+        <button mat-button (click)="setActiveComponent.emit('products')" 
+        [ngClass]="{'active': activeComponent === 'products'}">
+        <mat-icon>list</mat-icon> Products
+        </button>
+        
+        <button mat-button (click)="setActiveComponent.emit('cart')" 
+        [ngClass]="{'active': activeComponent === 'cart'}">
+        <mat-icon>shopping_cart</mat-icon> Cart
+        </button>
+        
+        <button mat-button class="header-warn-btn">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

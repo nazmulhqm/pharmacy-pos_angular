@@ -1,0 +1,69 @@
+<div class="app-container">
+
+  <app-header 
+    [isMobile]="isMobile" 
+    [activeComponent]="activeComponent" 
+    (setActiveComponent)="setActiveComponent($event)"
+    (menuClick)="toggleCategoryDrawer()">
+  </app-header>
+
+    <main class="main-content" *ngIf="!isMobile; else mobileMain">
+      <div class="left-section">
+        <app-product-list></app-product-list>
+      </div>
+      <div class="right-section">
+        <div class="customer-section">
+          <app-customer-modal></app-customer-modal>
+        </div>
+        <div class="cart-section">
+          <app-cart></app-cart>
+        </div>
+      </div>
+    </main>
+
+  <mat-drawer-container>
+    <ng-template #mobileMain>
+      <mat-drawer #drawer mode="side" [opened]="isCategoryDrawerOpen">
+        <app-category-list 
+              [categories]="categories" 
+              [selectedCategoryId]="productService.getCurrentCategory()" 
+              (categorySelected)="onCategorySelect($event)">
+          </app-category-list> 
+      </mat-drawer>
+
+      <div class="left-section" *ngIf="activeComponent === 'products'">
+        <app-product-list></app-product-list>
+      </div>
+      <div class="right-section" *ngIf="activeComponent === 'cart'">
+        <div class="customer-section">
+          <app-customer-modal></app-customer-modal>
+        </div>
+        <div class="cart-section">
+          <app-cart></app-cart>
+        </div>
+      </div>
+      <app-footer 
+        [activeComponent]="activeComponent" 
+        (setActiveComponent)="setActiveComponent($event)"
+        (paymentButtonClicked)="openPaymentDrawer()" 
+        (resetButtonClicked)="resetAll()">
+        </app-footer>
+    </ng-template>
+  </mat-drawer-container>
+
+  <app-footer 
+  [activeComponent]="activeComponent" 
+  (menuClick)="toggleCategoryDrawer()"
+  (setActiveComponent)="setActiveComponent($event)"
+  (paymentButtonClicked)="openPaymentDrawer()" 
+  *ngIf="!isMobile"
+  (resetButtonClicked)="resetAll()">
+  </app-footer>
+
+  <app-payment 
+    [total]="cartService.getTotalAmount()" 
+    [adjustment]="adjustment"
+    (close)="isPaymentDrawerVisible = false" 
+    *ngIf="isPaymentDrawerVisible">
+  </app-payment>
+</div>

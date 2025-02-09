@@ -1,0 +1,102 @@
+<div class="container" [ngClass]="{'open': true}">
+  <div class="drawer-header">
+      <h2>Order payment</h2>
+      <button class="btn btn-sm btn-close" (click)="onClose()">x</button>
+  </div>
+
+  <div class="drawer-content">
+      <div class="total-amount">
+          <p>Total Amount</p>
+          <span>Tk {{ total.toFixed(2) }}</span>
+      </div>
+
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+        <div class="payment-methods">
+          <label>Payment Method</label>
+          <div class="method-options d-flex justify-content-between">
+              <div *ngFor="let method of paymentMethods" 
+                   class="method-option d-flex align-items-center" 
+                   [class.selected]="paymentForm.get('method')?.value === method"
+                   (click)="paymentForm.patchValue({method: method})">
+                  <div class="method-icon me-2"> 
+                      <img [src]="'assets/' + method.toLowerCase() + '.png'" [alt]="method">
+                  </div>
+                  <span>{{ method }}</span>
+              </div>
+          </div>
+      </div>
+
+          <div class="amount-input">
+              <label>Input amount</label>
+              <input type="number" 
+                     formControlName="providedAmount"
+                     [min]="total"
+                     class="w-100 p-1 rounded border border-secondary focus:outline-none text-center fw-semibold text-muted">
+          </div>
+
+          <div class="flex-tables mt-4"> 
+              <table *ngIf="!isMobile" class="table table-bordered table-light">
+                  <thead>
+                      <tr>
+                          <th class="text-start">Subtotal</th>
+                          <th class="text-end">Tk {{ total.toFixed(2) }}</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td class="text-start">VAT/Tax</td>
+                          <td class="text-end">Tk {{ (total * 0.05).toFixed(2) }}</td>
+                      </tr>
+                      <tr>
+                          <td class="text-start">Discount</td>
+                          <td class="text-end">Tk {{ totalDiscount.toFixed(2) }}</td>
+                      </tr>
+                      <tr>
+                          <td class="text-start">Adjustment</td>
+                          <td class="text-end">Tk {{adjustment.toFixed(2)}}</td>
+                      </tr>
+                      <tr class="table-info">
+                          <td class="text-start">Total</td>
+                          <td class="text-end">Tk {{ total .toFixed(2) }}</td> 
+                      </tr>
+                  </tbody>
+              </table>
+          
+              <table class="table table-bordered table-light">
+                  <tbody>
+                    <tr class="table-sky">
+                        <th class="text-start">Taken</th>
+                        <th class="text-end">Tk {{ paymentForm.get('providedAmount')?.value || 0 }}</th>
+                    </tr>
+                      <tr class="table-sky">
+                          <td class="text-start">Return</td>
+                          <td class="text-end">Tk {{ returnAmount.toFixed(2) }}</td>
+                      </tr>
+                      <tr class="table-success">
+                          <td class="text-start">Paid</td>
+                          <td class="text-end">Tk {{ (paymentForm.get('providedAmount')?.value || 0) > (total ) ? (total ) : (paymentForm.get('providedAmount')?.value || 0) }}</td>
+                      </tr>
+                      <tr class="table-danger">
+                          <td class="text-start">Due</td>
+                          <td class="text-end">Tk {{ Math.max(0, (total ) - (paymentForm.get('providedAmount')?.value || 0)).toFixed(2) }}</td>
+                      </tr>
+                      <tr>
+                          <td class="text-start">Status</td>
+                          <td class="text-end">{{ (paymentForm.get('providedAmount')?.value || 0) >= (total + adjustment) ? 'Paid' : 'Unpaid' }}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+
+        <div class="drawer-footer">
+            <button type="button" class="btn close-btn" (click)="onClose()">Close</button>
+            <button type="button" class="btn receipt-btn">Receipt</button>
+            <button type="submit" 
+                    class="btn submit-btn"
+                    [disabled]="!paymentForm.valid || paymentForm.value.providedAmount < (total + adjustment)">
+                Save
+            </button>
+        </div>
+    </form>
+</div>
+</div>

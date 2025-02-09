@@ -1,0 +1,88 @@
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  position: relative;
+}
+
+.search-container {
+  margin-bottom: 1px; 
+}
+
+.cart-table-container {
+  max-height: 80vh; 
+  overflow-y: auto;
+  position: sticky;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table td {
+  border-bottom: 1px solid #ffffff;
+}
+
+.quantity-control {
+  padding: 2px 6px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.discount-input {
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 0 4px;
+  text-align: center;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-top: auto;
+}
+
+.summary-table td {
+  border: none;
+  padding: 8px;
+}
+
+.summary-button {
+  width: 100%;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.summary-button:hover {
+  background-color: #e0e0e0;
+}
+
+input[type="number"] {
+  width: 100px;
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  text-align: right;
+}
+
+input[type="number"]:focus {
+  border-color: #3f51b5;
+  outline: none;
+}
+
+.text-right {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .cart-table-container {
+      max-height: none; 
+  }
+}

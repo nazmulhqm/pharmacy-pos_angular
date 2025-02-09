@@ -1,0 +1,20 @@
+<div class="category-container">
+  <button class="category-btn main-category"
+          [class.selected]="selectedCategoryId===null"
+          (click)="onCategorySelect(null)">
+  <div class="category-content">
+    <span>All medicine</span>
+  </div>
+  </button>
+
+  <div class="category-list">
+    <button *ngFor="let category of categories"
+            class="category-btn"
+            [class.selected]="selectedCategoryId===category.categoryId"
+            (click)="onCategorySelect(category.categoryId)">
+      <div class="category-content">
+        <span>{{category.name}}</span>
+      </div>
+    </button>
+  </div>
+</div>

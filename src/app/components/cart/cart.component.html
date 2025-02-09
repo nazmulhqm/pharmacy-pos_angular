@@ -1,0 +1,116 @@
+<div class="cart-container">
+  <div class="search-container mb-1">
+      <div class="p-2 position-relative">
+          <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              (input)="onSearch(searchTerm)"
+              placeholder="Scan barcode, product code or title..."
+              class="form-control"
+          />
+      </div>
+  </div>
+<div class="cart-table-container p-1">
+  <table class="table table-hover cart-table table-bordered">
+  <thead class="bg-light position-sticky">
+      <tr class="text-start border-bottom">
+          <th class="p-3">Item</th>
+          <th class="p-3">Unit</th>
+          <th class="p-3">Price</th>
+          <th class="p-3">Qty</th>
+          <th class="px-1 py-3">Disc%</th>
+          <th class="p-3">Subtotal</th>
+          <th class="p-3 text-danger">
+              <i class="bi bi-record-circle"></i>
+          </th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let item of filteredCartItems()">
+          <td class="py-3 px-2 border-start w-60">
+              <p class="m-0">{{ item.product.name }}</p>
+          </td>
+          <td class="p-3 border-start">
+              <select 
+                  [(ngModel)]="item.unit" 
+                  class="form-select form-select-sm quantity-control"
+                  (change)="onUnitChange(item.product.id, item.unit)">
+                  <option value="piece">Piece</option>
+                  <option value="strip">Strip</option>
+                  <option value="box">Box</option>
+              </select>
+          </td>
+          
+          <td class="p-3 border-start text-center">{{ item.product.price }}</td>
+          <td class="p-3 border-start text-center">
+              <div class="d-flex align-items-center gap-2">
+                  <i class="bi bi-dash-circle text-danger cursor-pointer"
+                     (click)="cartService.updateQuantity(item.product.id, item.quantity - 1)">
+                  </i>
+                  <p class="m-0"> {{item.quantity}} </p>
+                  <i class="bi bi-plus-circle text-success cursor-pointer"
+                     (click)="cartService.updateQuantity(item.product.id, item.quantity + 1)">
+                  </i>
+              </div>
+          </td>
+          <td class="px-1 py-3 border-start text-center">
+              <input 
+                  type="number" 
+                  [(ngModel)]="item.discount" 
+                  (blur)="onDiscountChange(item.product.id, $event)" 
+                  class="discount-input" 
+                  min="0" 
+                  max="100"
+                  style="width: 40px;"
+              />
+          </td>
+          <td class="p-3 border-start text-center">
+              <p class="m-0">{{ item.subTotal | number:'1.2-2' }}</p>
+          </td>
+          <td class="border-start text-center">
+              <button class="btn"
+                 (click)="removeItem(item.product.id)"><i class="bi bi-trash text-danger"></i>
+              </button>
+              
+          </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+
+<table class="summary-table">
+    <tbody>
+        <tr>
+            <td class="text-right">Subtotal</td>
+            <td>
+                <button class="summary-button">
+                    Tk. {{ cartService.getSubTotal() | number:'1.2-2' }}
+                </button>
+            </td>
+            <td class="text-right">VAT/Tax</td>
+            <td>
+                <button class="summary-button">
+                    Tk. {{ cartService.getVatAmount() | number:'1.2-2' }}
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">Discount</td>
+            <td>
+                <button class="summary-button">
+                  Tk. {{ cartService.getTotalDiscountAmount() | number:'1.2-2' }} 
+                </button>
+            </td>
+            <td class="text-right">Adjustment</td>
+            <td>
+                <input
+                    type="number"
+                    [(ngModel)]="adjustment"
+                    (blur)="onAdjustmentChange($event)"
+                    class="adjustment-input"
+                />
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>

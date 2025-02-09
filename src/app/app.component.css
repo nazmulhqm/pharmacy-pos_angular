@@ -1,0 +1,89 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+  overflow: hidden;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 16px;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  height: 64px;
+  position: sticky;
+  top: 0; 
+  z-index: 1000; 
+}
+
+.logo img {
+  height: 40px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.main-content {
+  display: flex;
+  flex: 1; 
+  overflow-y: auto; 
+}
+
+.left-section {
+  flex: 1;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto; 
+}
+
+.right-section {
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-section {
+  padding: 2px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.cart-section {
+  flex: 1;
+  max-height: 68vh;
+  overflow-y: auto; 
+}
+
+.cart-actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+}
+
+.mat-sidenav-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.app-footer {
+  height: 64px; 
+  position: fixed;
+  bottom: 0; 
+  left: 0;
+  right: 0;
+  background-color: #f8f9fa;
+  z-index: 1000; 
+}
+
+@media (max-width: 768px) {
+  .left-section{
+    width: 100%;
+  }
+}
